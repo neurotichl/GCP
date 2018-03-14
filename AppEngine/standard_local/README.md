@@ -1,6 +1,6 @@
 # Google App Engine
 
-This example code is executed in local environment
+This example code is executed in local computer using app engine standard environment (python 2.7)
 
 ## Set up in local
 1. Install google-sdk
@@ -24,10 +24,18 @@ This example code is executed in local environment
 ![local ui](https://github.com/neurotichl/GCP/raw/master/img/local_gae1.PNG)
 
 ### Insert data into datastore
-- Use ndb model
 ![call API](https://github.com/neurotichl/GCP/raw/master/img/local_gae2.PNG)
+- Datatstore UI
 ![datastore](https://github.com/neurotichl/GCP/raw/master/img/local_gae_datastore.PNG)
+
+Note: Inserting into datastore in standard env must use the library [ndb](https://cloud.google.com/appengine/docs/standard/python/ndb/), google.cloud.datastore is not accepted and will raise [error](https://github.com/GoogleCloudPlatform/python-docs-samples/issues/1235) 
+
 
 ### Cron job scheduling
 - target: service name defined in `app.yaml`
 ![cron](https://github.com/neurotichl/GCP/raw/master/img/local_gae_cron.PNG)
+
+### Task queue
+Task queue is currently not supported in app engine flex.
+![queue](https://github.com/neurotichl/GCP/raw/master/img/local_gae_queue.PNG)
+![queue2](https://github.com/neurotichl/GCP/raw/master/img/local_gae_queue2.PNG)
