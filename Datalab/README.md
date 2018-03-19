@@ -1,5 +1,6 @@
 # Datalab 
 - https://cloud.google.com/datalab/docs/quickstart
+
 Datalab is just a compute engine instance with datalab image installed in it. The instance resource (disk space, memory) can be edited in the compute engine console.
 
 
@@ -16,5 +17,5 @@ gcloud components install datalab
     
 ### Datalab API
 
-Datalab has it's own API 
+Datalab has it's own API for cloud computing
 - http://googledatalab.github.io/pydatalab/
