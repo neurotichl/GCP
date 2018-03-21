@@ -4,14 +4,22 @@ This example code is executed in local computer using app engine standard enviro
 
 ## Set up in local
 1. Install google-sdk
-2. Determine path to dev_appserver.py (Located inside google-cloud-sdk/bin/dev_appserver.py)
-3. cd into the application folder and run:
+2. Create a folder `lib` and install all the extra-required libraries by:
+   ```
+   pip install -t lib -r requirements.txt
+   ```
+3. Determine path to dev_appserver.py (Located inside google-cloud-sdk/bin/dev_appserver.py)
+4. cd into the application folder and run:
    ```
    python C://.../dev_appserver.py app.yaml
    ```
 
 ## Folder structure
 ```
++- lib
++   - library1 
++   - library2
++   - ...
 +- app.yaml
 +- cron.yaml
 +- queue.yaml
