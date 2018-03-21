@@ -36,6 +36,10 @@ Note: Inserting into datastore in standard env must use the library [ndb](https:
 ![cron](https://github.com/neurotichl/GCP/raw/master/img/local_gae_cron.PNG)
 
 ### Task queue
-Task queue is currently not supported in app engine flex.
+- Task queue is currently not supported in app engine flex.
 ![queue](https://github.com/neurotichl/GCP/raw/master/img/local_gae_queue.PNG)
 ![queue2](https://github.com/neurotichl/GCP/raw/master/img/local_gae_queue2.PNG)
+
+### Memcache
+- Temporary store value in cache in specified timeout.
+![memcache](https://github.com/neurotichl/GCP/raw/master/img/memcache.gif)
