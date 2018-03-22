@@ -1,12 +1,21 @@
-from flask import Flask, redirect, url_for, request, render_template
-from google.appengine.api import taskqueue, memcache
+from flask import Flask, redirect, url_for, request, render_template, jsonify
+from google.appengine.api import taskqueue, memcache, urlfetch
 from google.appengine.ext import ndb
 from datetime import datetime 
+from flasgger import Swagger
+from flasgger.utils import swag_from
+from bs4 import BeautifulSoup
 import numpy as np
 import logging
 import time
 
+
 app = Flask(__name__)
+app.config['SWAGGER'] = {
+		'title':'Quotes',
+		'description':'Random quote generator with respect to category',
+	}
+Swagger(app)
 
 @app.route('/')
 def hello_world():
@@ -65,10 +74,9 @@ m = memcache.Client()
 
 @app.route('/cache', methods=['GET','POST'])
 def name():
-	print 'Call name'
 	if request.method == 'POST':
 		name = request.form['Name']
-
+		
 		value = m.get(name)
 		if not value:
 			return render_template('whatmood.html', name=name)
@@ -101,7 +109,22 @@ def current_mood():
 	</html>
 	'''.format(name, mood)
 
+################################### urlfetch, flasgger #########################################
+# http://brunorocha.org/python/flask/flasgger-api-playground-with-flask-and-swagger-ui.html
+@app.route('/quote/<string:category>')
+@swag_from('swag.yaml')
+def quote(category):
+	resp = urlfetch.Fetch('https://www.brainyquote.com/topics/{}'.format(category))
+	soup = BeautifulSoup(resp.content, 'html.parser')
 
+	quotes = [q.text for q in soup.find_all('a',{'title':'view quote'})]
+	length = len(quotes)
+
+	if length:
+		quote =  quotes[np.random.randint(length-1)]
+		return jsonify(quote=quote)
+	else:
+		return 'Quote category not found!', 500
 
 if __name__=='__main__':
 	app.run()
